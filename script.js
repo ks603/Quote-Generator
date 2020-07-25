@@ -5,7 +5,7 @@ const twitterBtn = document.getElementById('twitter')
 const newQuoteBtn = document.getElementById('new-quote')
 
 // Get Quote from the API
-async function getQuote() {
+const getQuote = async () => {
   const proxyUrl = 'https://radiant-sands-08294.herokuapp.com/'
   const apiUrl =
     'http://api.forismatic.com/api/1.0/?method=getQuote&lang=en&format=json'
@@ -27,12 +27,23 @@ async function getQuote() {
       quoteText.classList.remove('long-quote')
     }
     quoteText.innerText = data.quoteText
-    console.log(data)
   } catch (error) {
     getQuote()
   }
 }
 
-// On Load
+// Tweet Quote
 
+const tweetQuote = () => {
+  const quote = quoteText.innerText
+  const author = authorText.innerText
+  const twitterUrl = `https://twitter.com/intent/tweet?text=${quote} - ${author}`
+  window.open(twitterUrl, '_blank')
+}
+
+// Event Listeners
+newQuoteBtn.addEventListener('click', getQuote)
+twitterBtn.addEventListener('click', tweetQuote)
+
+// On Load
 getQuote()
