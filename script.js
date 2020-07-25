@@ -1,3 +1,9 @@
+const quoteContainer = document.getElementById('quote-container')
+const quoteText = document.getElementById('quote')
+const authorText = document.getElementById('author')
+const twitterBtn = document.getElementById('twitter')
+const newQuoteBtn = document.getElementById('new-quote')
+
 // Get Quote from the API
 async function getQuote() {
   const proxyUrl = 'https://radiant-sands-08294.herokuapp.com/'
@@ -6,10 +12,11 @@ async function getQuote() {
   try {
     const response = await fetch(proxyUrl + apiUrl)
     const data = await response.json()
+    authorText.innerText = data.quoteAuthor
+    quoteText.innerText = data.quoteText
     console.log(data)
   } catch (error) {
     getQuote()
-    console.log('Whoops, no quote', error)
   }
 }
 
